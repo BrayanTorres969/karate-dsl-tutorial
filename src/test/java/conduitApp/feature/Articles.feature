@@ -2,11 +2,8 @@ Feature: Articles
 
   Background: Define URL
     Given url 'https://conduit-api.bondaracademy.com/api/'
-    Given path 'users/login'
-    And request {"user": {"email": "brayan@gmail.com", "password": "brayan123"}}
-    When method Post
-    Then status 200
-    * def token = response.user.token
+    * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') {"email": "brayan@gmail.com", "password": "brayan123"}
+    * def token = tokenResponse.authToken
 
   Scenario: Create a new article
     Given header Authorization = 'Token ' + token
