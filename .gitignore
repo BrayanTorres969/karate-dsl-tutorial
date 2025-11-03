@@ -1,0 +1,38 @@
+# Maven target directory
+/target/
+
+# Logs
+*.log
+
+# Karate reports (HTML, JSON, XML)
+karate-reports/
+**/karate-reports/
+karate-summary.html
+karate.log
+
+# IntelliJ IDEA / Eclipse / VSCode config
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# OS or temporary files
+*.swp
+*.swo
+~*
+
+# Backup or temp files
+*.tmp
+*.bak
+
+# Node modules (if you use Karate + JS)
+node_modules/
+
+# Environment-specific
+.env
