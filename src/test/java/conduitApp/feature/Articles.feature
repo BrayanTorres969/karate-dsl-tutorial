@@ -1,12 +1,9 @@
 Feature: Articles
 
   Background: Define URL
-    Given url 'https://conduit-api.bondaracademy.com/api/'
-    * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') {"email": "brayan@gmail.com", "password": "brayan123"}
-    * def token = tokenResponse.authToken
+    Given url apiUrl
 
   Scenario: Create a new article
-    Given header Authorization = 'Token ' + token
     Given path 'articles'
     And request {"article": {"title": "prueba3", "description": "pruebita", "body": "Este es un nuevo articulo","tagList":['Social Media', 'Blog']}}
     When method Post
@@ -15,7 +12,6 @@ Feature: Articles
 
   @onlyme
   Scenario: Create and delete article
-    Given header Authorization = 'Token ' + token
     Given path 'articles'
     And request {"article": {"title": "delete article", "description": "pruebita", "body": "Este es un nuevo articulo","tagList":['Social Media', 'Blog']}}
     When method Post
@@ -23,7 +19,6 @@ Feature: Articles
     * def articleId = response.article.slug
 
     Given params {limit:10,offset:0}
-    Given header Authorization = 'Token ' + token
     Given path 'articles'
     When method Get
     Then status 200
@@ -31,13 +26,11 @@ Feature: Articles
     #And match titles contains 'delete article'
     And match response.articles[0].title == 'delete article'
 
-    Given header Authorization = 'Token ' + token
     Given path 'articles',articleId
     When method Delete
     Then status 204
 
     Given params {limit:10,offset:0}
-    Given header Authorization = 'Token ' + token
     Given path 'articles'
     When method Get
     Then status 200
